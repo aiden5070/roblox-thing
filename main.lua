@@ -1,5 +1,5 @@
 local remoteFolder = Instance.new('Folder',game:GetService('ReplicatedStorage'))
-remoteFolder.Name = 'FakeRemotes'
+remoteFolder.Name = 'MainRemotes'
 local mainRemote = Instance.new('RemoteEvent',remoteFolder)
 local remoteNames = {
   "Fire",
