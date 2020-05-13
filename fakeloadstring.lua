@@ -31,7 +31,7 @@ return function(str,env)
 	local ran,error = pcall(function()
 		local zio = luaZ:init(luaZ:make_getS(str), nil)
 		if not zio then return error() end
-		local func = luaY:parser(LuaState, zio, nil, name or "::Adonis::Loadstring::")
+		local func = luaY:parser(LuaState, zio, nil, name or "?")
 		writer, buff = luaU:make_setS()
 		luaU:dump(LuaState, func, writer, buff)
 		f = rerubi(buff.data, env)
