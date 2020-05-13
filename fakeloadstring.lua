@@ -1,6 +1,5 @@
 -- >> needs to be a plugin in order for this to work
 
-script.Name = "loadstring"
 local waitDeps = {
 	'Rerubi';
 	'LuaK';
