@@ -21,7 +21,7 @@ local end_name = remoteNames[math.random(1,#remoteNames)]
 
 mainRemote.Name = start_name.. end_name
 
-local Modules = game:GetService('ReplicatedStorage'):FindFirstChild('Modules')
+local Modules = game:GetService('ReplicatedStorage'):FindFirstChild('MainModules')
 if not Modules then
   error("Missing required folder: Modules. Please re-install.")
 end
