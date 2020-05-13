@@ -11,7 +11,7 @@ function sudo_require(mod)
     end
 end
 
-local Dep = game:GetService('ReplicatedStorage'):FindFirstChild('Dep')
+local dep = game:GetService('ReplicatedStorage'):FindFirstChild('Dep')
 if not dep then
   error("Missing folder. Please re-install.")
 end
