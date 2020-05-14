@@ -1,4 +1,6 @@
---
+--[[
+Obfuscated to protect the source and methods that can be easily patched or bypassed by exploiters
+--]]
 local Byte         = string.byte;
 local Char         = string.char;
 local Sub          = string.sub;
