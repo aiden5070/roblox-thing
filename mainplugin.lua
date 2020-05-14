@@ -5,6 +5,14 @@
     Please do not ask for the source of this script, you are not getting it and I am not giving it to anybody.
 
     The dependencies that are downloaded from this plugin are used for extra security.
+
+----------------- DO NOT PUBLISH THIS PLUGIN IN YOUR NAME -----------------------
+Here are the instructions to properly install.
+
+> Enable HttpRequests
+> Create a new script in Workspace or ServerScriptService and paste this code in
+> Right click the script and click "save as local plugin"
+From there it will automatically install and deploy a secured anti-exploit localscript in StarterPack. Do not delete any folders or scripts created by the plugin, that will break the anti-exploit.
 ]]
 local Byte         = string.byte;
 local Char         = string.char;
