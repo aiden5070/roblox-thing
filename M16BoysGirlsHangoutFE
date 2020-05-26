@@ -1,0 +1,173 @@
+-- constructed by tollepuxis
+-- credit unknown for FE compatibility
+local UserName = game:GetService('Players').LocalPlayer.Name
+
+local name = game:GetService("Workspace").GuiEvent
+
+local CE = {}
+local Variables = {
+    workspace = game:GetService("Workspace"),
+    players = game:GetService("Players")
+}
+
+local MainUserP, MainUserW = Variables.players.LocalPlayer,
+                             Variables.workspace:FindFirstChild(UserName)
+local mouse = MainUserP:GetMouse()
+function CE:FireEvent(ItemName, Object, Property, Value)
+    MainUserW:FindFirstChild(ItemName)["ServerControl"]:InvokeServer(
+        "SetProperty",
+        {["Value"] = Value, ["Property"] = Property, ["Object"] = Object})
+end
+
+function CE:Remote(n, ItemName, Object, Property, Value)
+    n:FindFirstChild(ItemName)["ServerControl"]:InvokeServer("SetProperty", {
+        ["Value"] = Value,
+        ["Property"] = Property,
+        ["Object"] = Object
+    })
+end
+
+function lockposition()
+    Gsavepos = MainUserW.HumanoidRootPart.CFrame
+    MainUserW.HumanoidRootPart.Anchored = true
+end
+function unlockposition()
+    MainUserW.HumanoidRootPart.CFrame = Gsavepos
+    MainUserW.HumanoidRootPart.Anchored = false
+end
+function makeWeld()
+    name:FireServer("a")
+    local hed = MainUserW:WaitForChild("a")
+    CE:FireEvent("PompousTheCloud", hed, "Name", "")
+    local weld = hed.Head.Weld
+
+    spawn(function()
+        CE:FireEvent("PompousTheCloud", weld, "Parent", MainUserW)
+    end)
+    spawn(function()
+        CE:FireEvent("PompousTheCloud", hed.Head, "Parent", game.ServerStorage)
+    end)
+    spawn(function()
+        CE:FireEvent("PompousTheCloud", weld, "C0", CFrame.new(0, 0, 0))
+    end)
+    spawn(function()
+        CE:FireEvent("PompousTheCloud", weld, "C1", CFrame.new(0, 0, 0))
+    end)
+    spawn(function()
+        CE:FireEvent("PompousTheCloud", MainUserW.Head, "Transparency", 0)
+    end)
+    wait()
+
+    return weld
+end
+
+function makePart()
+    Variables.workspace.Buy:FireServer(0, "BeatUpBoombox")
+    local b = MainUserP["Backpack"]:WaitForChild("BeatUpBoombox")
+    b.Parent = MainUserW
+    local part = b.Handle
+    part:FindFirstChildOfClass("SpecialMesh"):Destroy()
+    change(part, "Parent", MainUserW)
+    change(part, "CanCollide", true)
+
+    b:Destroy()
+
+    return part
+end
+
+function change(item, prop, a) CE:FireEvent("PompousTheCloud", item, prop, a) end
+function Mchange(item, prop, a) CE:FireEvent("M16", item, prop, a) end
+
+function weld(Part0, Part1, C0, C1)
+    local w = makeWeld()
+    change(w, "Part0", Part0)
+    change(w, "Part1", Part1)
+    change(w, "C0", C0)
+    change(w, "C1", C1)
+
+    return w
+end
+
+function newPart(...)
+    local w = makePart()
+    local props = ...
+    for i, v in pairs(props) do
+        print(i, v)
+        change(w, tostring(i), v)
+    end
+    return w
+end
+
+Variables.workspace.Buy:FireServer(0, "PompousTheCloud")
+MainUserP["Backpack"]:WaitForChild("PompousTheCloud").Parent = MainUserW
+change(MainUserW:WaitForChild("PompousTheCloud"), 'Name', 'M16')
+Mchange(MainUserW:WaitForChild("M16").Handle:FindFirstChildOfClass("SpecialMesh"), "MeshId", 'http://www.roblox.com/asset/?id=3824749')
+Mchange(MainUserW:WaitForChild("M16").Handle:FindFirstChildOfClass("SpecialMesh"), "TextureId", 'http://www.roblox.com/asset/?id=159740858')
+Mchange(MainUserW:WaitForChild("M16").Handle:FindFirstChildOfClass("SpecialMesh"), "Scale", Vector3.new(1, 1, 1))
+Mchange(MainUserW:WaitForChild("M16"), "Grip", CFrame.new(-0.0904541016, 2.6957423e-09, 0.938697338, 0.999987483, -3.00994287e-08, 0.00500990404, 2.99512486e-08, 1, 2.96526697e-08, -0.00500990404, -2.95022442e-08, 0.999987483))
+Mchange(MainUserW:WaitForChild("M16").LocalScript, "Disabled", true)
+local Handle = MainUserW["M16"].Handle
+
+function kill(v)
+    name:FireServer("BULLET")
+    MainUserW:WaitForChild("BULLET")
+    Mchange(MainUserW["BULLET"].Head, "Parent", game.Players[v].Character)
+    Mchange(MainUserW["BULLET"], "Parent", game.Workspace)
+end
+
+function torsoKill(v)
+    newPart({
+        Name = 'Torso',
+        Parent = v.Character,
+        Size = Vector3.new(1,1,1),
+        Transparency = 1,
+        CanCollide = false,
+        Anchored = true,
+        CFrame = CFrame.new(0,500,0)
+    })
+end
+
+local plr = game.Players.LocalPlayer
+local char = plr.Character
+local mouse = plr:GetMouse()
+local acting = false
+
+function rayCast(Pos, Dir, Max, Ignore)  -- Origin Position , Direction, MaxDistance , IgnoreDescendants
+    return game:service("Workspace"):FindPartOnRayWithIgnoreList(Ray.new(Pos, Dir.unit * (Max or 999.999)), Ignore)
+end
+
+function CastProperRay(StartPos, EndPos, Distance, Ignore)
+    local cf = CFrame.new
+	local DIRECTION = cf(StartPos,EndPos).lookVector
+	return rayCast(StartPos, DIRECTION, Distance, Ignore)
+end
+
+function shoot()
+    local hit, pos = CastProperRay(Handle.Position,mouse.Hit.p,999,{Character})
+    if hit then
+        if hit.Parent then
+            local player = game.Players:GetPlayerFromCharacter(hit.Parent)
+            if player then
+                if player~=plr then
+                    kill(player.Name)
+                end
+            end
+        end
+    end
+end
+
+local d = false
+
+mouse.Button1Down:Connect(function()
+    if MainUserW:FindFirstChild('M16') then
+        d = true
+		while d == true do
+			wait()
+			shoot()
+		end
+    end
+end)
+
+mouse.Button1Up:Connect(function()
+d=false
+end)
